@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Listados Privados | Acceso restringido</title>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
+  <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet" />
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="logodg.jpg">
+<link rel="icon" type="image/png" sizes="192x192" href="logodg.jpg">
+<link rel="apple-touch-icon" href="logodg.jpg">
+
+ <style>
+:root{
+  --bbva:#0b2a5b;
+  --bbva-2:#1464a5;
+
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#5b6b83;
+  --border:#e6ebf2;
+
+  --shadow:0 12px 30px rgba(11,42,91,.12);
+  --shadowHover:0 18px 44px rgba(11,42,91,.18);
+
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+
+  /* ✅ FONDO UNIFICADO (sin cortes) */
+  background: linear-gradient(180deg, #0e5ca8 0%, #0b3f7a 55%, #072146 100%);
+  background-attachment: fixed;
+}
+
+/* Contenedor */
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding: 0 14px;
+}
+
+/* ✅ Topbar sin “corte” */
+.topbar{
+  background: transparent;
+  color:#fff;
+  padding: 18px 0 12px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:14px;
+  letter-spacing:.4px;
+  opacity:.95;
+}
+
+.brand .pill{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  background:rgba(255,255,255,.10);
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+  border:1px solid rgba(255,255,255,.18);
+  white-space:nowrap;
+}
+
+.hero{ padding: 12px 0 8px; }
+
+/* Notice */
+.notice{
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(230,235,242,.9);
+  border-left:6px solid var(--bbva-2);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:14px 14px;
+  margin:14px 0 16px;
+}
+.notice h2{ margin:0 0 8px; font-size:14px; color:var(--bbva); }
+.notice p{ margin:0; color:var(--muted); font-size:13px; line-height:1.45 }
+.notice ul{ margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px }
+.notice li{ margin:6px 0 }
+.small{ font-size:12px; color:var(--muted); line-height:1.5; margin:10px 0 0; }
+
+/* Controls */
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:14px 0 8px;
+}
+.input{
+  flex:1 1 280px;
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(230,235,242,.9);
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:14px;
+  outline:none;
+}
+.btn{
+  background:var(--bbva-2);
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:transform .15s ease, filter .15s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform:translateY(-1px); filter:brightness(.98); }
+.btn.secondary{
+  background:rgba(255,255,255,.96);
+  color:var(--bbva-2);
+  border:1px solid rgba(230,235,242,.9);
+}
+
+/* ✅ GRID */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:14px;
+  padding: 10px 0 34px;
+}
+
+.card{
+  background:rgba(255,255,255,.98);
+  border:1px solid rgba(230,235,242,.95);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:14px;
+  overflow:hidden;
+
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  will-change: transform;
+}
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: var(--shadowHover);
+  border-color: rgba(20,100,165,.30);
+}
+
+.card-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+.card h3{ margin:0; font-size:15px; color:var(--bbva); }
+
+.tag{
+  font-size:11px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(20,100,165,.10);
+  color:var(--bbva-2);
+  border:1px solid rgba(20,100,165,.20);
+  white-space:nowrap;
+}
+.meta{ margin:0; font-size:13px; color:var(--muted); line-height:1.45 }
+
+.links{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 12px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:800;
+  font-size:13px;
+  border:1px solid rgba(230,235,242,.95);
+  color:var(--bbva-2);
+  background:rgba(255,255,255,.98);
+  transition:transform .15s ease, filter .15s ease;
+}
+.a:hover{ transform:translateY(-1px); filter:brightness(.98); }
+.a.primary{
+  background:linear-gradient(90deg, var(--bbva), var(--bbva-2));
+  color:#fff;
+  border:1px solid rgba(255,255,255,.14);
+}
+
+/* ✅ Footer integrado (sin franja blanca) */
+.footer{
+  padding:16px 0 28px;
+  font-size:12px;
+  border-top:1px solid rgba(255,255,255,.16);
+  background:transparent;
+  color:#ffffff; /* blanco real */
+}
+
+.footer .small{
+  color:#ffffff; /* forzamos blanco solo en small */
+  opacity:0.95;  /* opcional, para que no sea tan brillante */
+}
+
+/* ===== RESPONSIVE ===== */
+/* ===============================
+   RESPONSIVE LIMPIO Y ORDENADO
+   =============================== */
+
+/* Desktop base */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:16px;
+}
+
+/* ===============================
+   RESPONSIVE LIMPIO (TABLET + CEL)
+   =============================== */
+@media (max-width: 900px){
+
+  /* Grid a 1 columna */
+  .grid{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* Header de card apilado */
+  .card-header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Botones/links a full */
+  .links{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .a{
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ✅ Controles: botón centrado y sin desbordes */
+  .controls{
+    display: flex;              /* por si no lo tiene */
+    justify-content: center;
+  }
+
+  .controls .btn.secondary{
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+
+    /* clave para que NO se salga */
+    white-space: normal;        /* permite saltos */
+    line-height: 1.25;
+  }
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+  <script>
+    const REQUIRE_PASSWORD = false;   // <-- cuando ya esté listo, ponlo en true
+    const ACCESS_KEY = "DG-CLIENTE-2026";
+
+    if (REQUIRE_PASSWORD) {
+      const ok = sessionStorage.getItem("listados_ok");
+      if (!ok) {
+        const pass = prompt("Acceso restringido.\nIngresa la clave:");
+        if (pass !== ACCESS_KEY) {
+          alert("Clave incorrecta. Acceso restringido.");
+          window.location.href = "/";
+        } else {
+          sessionStorage.setItem("listados_ok", "1");
+        }
+      }
+    }
+  </script>
+
+  <header class="topbar">
+    <div class="wrap brand">
+      <h1>Listados Privados — Acceso restringido</h1>
+      <div class="pill">🔒 Uso reservado • No compartir</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="notice">
+        <h2>Uso confidencial</h2>
+                    <p>
+            Este material es de uso restringido. La información se proporciona únicamente para fines informativos
+            y está sujeta a disponibilidad y cambios conforme a la etapa jurídica de cada propiedad.
+            </p>
+
+            <ul>
+          <li>
+            La información contenida en este listado es confidencial y de uso exclusivo para el destinatario autorizado.
+            Queda estrictamente prohibida su reproducción, distribución, cesión o uso parcial o total sin consentimiento expreso.
+            El uso indebido podrá dar lugar a reclamaciones por daños y perjuicios conforme a los artículos 1910 y 1915
+            del Código Civil Federal.
+            </li>
+
+
+            <li>
+                Los listados incluyen propiedades en litigio, adjudicadas o con posesión, según el caso.
+            </li>
+
+            <li>
+                Para validar disponibilidad o recibir información detallada sobre una propiedad de tu interés,
+                contacta directamente con el asesor.
+            </li>
+            </ul>
+
+            <p class="small">
+            Contacto directo:
+            <a href="https://wa.me/523343340062" target="_blank" rel="noopener">
+                Enviar mensaje por WhatsApp
+            </a>
+            </p>
+
+      </div>
+
+     <div class="controls">
+  <a class="btn secondary"
+     href="https://wa.me/523343340062?text=Hola,%20quiero%20revisar%20los%20listados%20y%20validar%20un%20caso.%20Mi%20presupuesto:%20_____%20y%20tipo%20de%20oportunidad:%20(posesion/adjudicado/litigio)"
+     target="_blank" rel="noopener">
+    Contacta al asesor para validar disponibilidad.
+  </a>
+</div>
+
+    </section>
+
+   <section class="grid" id="grid">
+
+  <article class="card" data-tags="adjudicado litigio posesion">
+    <div class="card-header">
+      <h3>Listado 01 — Proveedor A</h3>
+      <span class="tag">Actualizado: Mensual</span>
+    </div>
+    <p class="meta">
+      Catálogo mixto: derechos litigiosos, adjudicados y algunas oportunidades con posesión (según disponibilidad).
+    </p>
+    <div class="links">
+      <a class="a primary" href="creditossentenciaweb.xlsx" target="_blank" rel="noopener">Ver listado</a>
+    </div>
+  </article>
+
+  <article class="card" data-tags="adjudicado litigio posesion">
+    <div class="card-header">
+      <h3>Listado 02 — Proveedor A</h3>
+      <span class="tag">Actualizado: Mensual</span>
+    </div>
+    <p class="meta">
+      Catálogo mixto: derechos litigiosos, adjudicados y algunas oportunidades con posesión (según disponibilidad).
+    </p>
+    <div class="links">
+      <a class="a primary" href="listaarmyiniclaes.xlsx" target="_blank" rel="noopener">Ver listado</a>
+    </div>
+  </article>
+
+  <article class="card" data-tags="posesion">
+    <div class="card-header">
+      <h3>Listado 04 — Posesión inmediata</h3>
+      <span class="tag">Entrega rápida</span>
+    </div>
+    <p class="meta">
+      Oportunidades con posesión / entrega más rápida (cuando aplica). Margen menor.
+    </p>
+    <div class="links">
+      <a class="a primary" href="LISTADOPOSESIONWEB.xlsx" target="_blank" rel="noopener">Ver listado</a>
+    </div>
+  </article>
+
+  <article class="card" data-tags="litigio">
+    <div class="card-header">
+      <h3>Listado 05 — Ofertas</h3>
+      <span class="tag">Mayor descuento</span>
+    </div>
+    <p class="meta">
+    <p class="meta">
+    Mayor beneficio por tiempo de espera. Tiempo máximo estimado de entrega: 9 meses. 
+    Se trabaja con seguimiento jurídico especializado.
+    </p>
+
+
+    </p>
+    <div class="links">
+      <a class="a primary" href="ofertaarmy.xlsx" target="_blank" rel="noopener">Ver listado</a>
+    </div>
+  </article>
+
+  <article class="card" data-tags="adjudicado">
+    <div class="card-header">
+      <h3>Listado 06 — Adjudicados</h3>
+      <span class="tag">Etapa avanzada</span>
+    </div>
+    <p class="meta">
+      Propiedades en etapa avanzada (según caso: con escritura o sin escritura).
+    </p>
+    <div class="links">
+      <a class="a primary" href="listados adjudicados arm web.xlsx" target="_blank" rel="noopener">Ver listado</a>
+    </div>
+  </article>
+
+  <article class="card" data-tags="posesion">
+    <div class="card-header">
+      <h3>Listado 07 — Posesión 2</h3>
+      <span class="tag">Información</span>
+    </div>
+    <p class="meta">
+      Oportunidades con posesión / entrega más rápida (cuando aplica). Margen menor.
+    </p>
+    <div class="links">
+      <a class="a primary" href="REEMPLAZA_AQUI_TU_LINK_7" target="_blank" rel="noopener">Ver información</a>
+    </div>
+  </article>
+
+  <article class="card" data-tags="posesion adjudicado litigio">
+    <div class="card-header">
+      <h3>Listado 08 — Plan de financiamiento</h3>
+      <span class="tag">Información</span>
+    </div>
+    <p class="meta">
+      Información del plan, requisitos y formatos. Intereses solo durante el periodo del préstamo (según contrato).
+    </p>
+    <div class="links">
+  <a class="a primary" 
+     href="finaciamiento.html" 
+     target="_self">
+     Ver información
+  </a>
+</div>
+
+  </article>
+
+  <article class="card" data-tags="adjudicado posesion banco bbva">
+  <div class="card-header">
+    <h3>Listado BBVA — Inmuebles Bancarios</h3>
+    <span class="tag">Proceso externo</span>
+  </div>
+  <p class="meta">
+    Si estás interesado en un inmueble de BBVA (Bancomer), 
+    te apoyamos con el proceso de compra. 
+    (No incluye recuperación jurídica.)
+  </p>
+  <div class="links">
+    <a class="a primary" 
+       href="https://www.bbvainmuebles.mx/inversionistas/" 
+       target="_blank" 
+       rel="noopener">
+      Ver inmuebles BBVA
+    </a>
+  </div>
+</article>
+
+</section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div><strong>Inventario confidencial.</strong></div>
+      <div class="small">
+        La información contenida es de carácter reservado. Queda prohibida su reproducción, distribución o uso sin autorización expresa.
+      </div>
+      <div class="small" style="margin-top:6px;">
+        © 2026 Derechos reservados | Uso exclusivo para fines de análisis de inversión.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

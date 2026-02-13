@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Proceso de Compra y Opciones de Financiamiento</title>
+  <meta name="description" content="Proceso de compra y opciones de financiamiento: préstamo hasta posesión, crédito tipo hipotecario a 15 años y opción con crédito bancario tras liberación." />
+
+  <style>
+   :root{
+  /* Azul principal tipo BBVA */
+  --navy:#072146;        /* azul profundo corporativo */
+  --navy-2:#004481;      /* azul BBVA medio */
+  
+  --ink:#0f172a;         /* texto oscuro limpio */
+  --muted:#5b6b83;       /* gris profesional */
+
+  --bg:#f5f9ff;
+        /* fondo azul MUY claro (ya no gris sucio) */
+  --card:#ffffff;
+
+  --line:#e3ecf7;        /* borde azul muy suave */
+
+  --pill-bg:#eef4fb;     /* fondo badge limpio */
+  --pill-bd:#d6e4f5;
+  --pill-tx:#004481;     /* azul BBVA */
+
+  --shadow:0 18px 45px rgba(0,68,129,.12);
+
+  --radius:18px;
+  --radius2:22px;
+}
+
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+
+  background: linear-gradient(
+    180deg,
+    #0e5ca8 0%,
+    #0b3f7a 55%,
+    #072146 100%
+  );
+  background-attachment: fixed; /* evita cortes raros */
+}
+
+
+    .wrap{
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 28px 16px 70px;
+    }
+
+    /* Header */
+    .hero{
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 22px 22px;
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .hero h1{
+      margin:0;
+      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+      letter-spacing: .2px;
+      color: var(--navy);
+    }
+    .hero p{
+      margin:8px 0 0;
+      color: var(--muted);
+      line-height:1.55;
+      max-width: 760px;
+    }
+    .hero .pills{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      margin-top: 4px;
+    }
+    .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+     padding:6px 12px;
+    border-radius:999px;
+    background:#f1f5f9;      /* gris muy claro */
+    border:1px solid #e2e8f0; /* borde sutil */
+     color:#334155;           /* gris oscuro */
+        
+     font-size:.9rem;
+     font-weight:500;
+     }
+    /* ===== Header pills: 2 arriba + 1 abajo (solo móvil / tablet) ===== */
+    @media (max-width: 991px){
+    .hero .pills{
+        display:grid;
+        grid-template-columns: repeat(2, max-content);
+        justify-content: center;
+        gap: 10px 12px;            /* fila / columna */
+    }
+
+    /* El 3er pill (Seguimiento) baja y queda centrado */
+    .hero .pills .pill:nth-child(3){
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+    }
+
+    /* Layout blocks */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+  .card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius2);
+  box-shadow: 0 14px 35px rgba(6,30,60,.10);
+  padding: 18px 18px 16px;
+
+  transition: 
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+/* Hover con movimiento */
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 22px 50px rgba(6,30,60,.18);
+  border-color: #d6dee8;
+}
+
+    .card-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .card h2{
+      margin:0;
+      font-size: 1.05rem;
+      color: var(--navy);
+      letter-spacing:.2px;
+    }
+    .tag{
+    display:inline-flex;
+    align-items:center;
+    padding: 7px 12px;
+    border-radius: 999px;
+
+    border: 1px solid #e5e7eb;   /* gris muy suave */
+    background: #f8fafc;         /* casi blanco */
+    color: #64748b;              /* gris profesional */
+
+    font-size: .9rem;
+    white-space:nowrap;
+    }
+
+    .meta{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .list{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--ink);
+      line-height:1.5;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background: var(--navy);
+      margin-top: 6px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 3px rgba(11,58,102,.12);
+    }
+    .muted{color:var(--muted)}
+
+    .links{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+
+    .a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
+      border: 1px solid transparent;
+      user-select:none;
+    }
+    .a:active{ transform: translateY(1px); }
+    .a.primary{
+      background: var(--navy);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(11,58,102,.22);
+    }
+    .a.primary:hover{
+      filter: brightness(1.05);
+      box-shadow: 0 14px 30px rgba(11,58,102,.28);
+      transform: translateY(-1px);
+    }
+    .a.ghost{
+      background:#fff;
+      border-color: var(--line);
+      color: var(--navy);
+    }
+    .a.ghost:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(6,30,60,.10);
+    }
+
+    /* FAQ / Steps */
+    .faq{
+      margin-top: 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: 0 14px 35px rgba(6,30,60,.10);
+      padding: 16px 18px 18px;
+    }
+    .faq h3{
+      margin:0 0 8px;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+    details{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 12px;
+      background: #fff;
+      margin-top: 10px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight: 800;
+      color: var(--ink);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: var(--pill-bg);
+      border:1px solid var(--pill-bd);
+      color: var(--pill-tx);
+      flex:0 0 auto;
+    }
+    details[open] .chev{
+      transform: rotate(180deg);
+      transition: transform .15s ease;
+    }
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height:1.6;
+    }
+
+    .cta{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 16px 18px;
+    }
+    .cta strong{ color: var(--navy); }
+    .cta .small{
+      color: var(--muted);
+      margin-top: 4px;
+      line-height:1.45;
+    }
+
+    /* Tiny footer */
+    .footer{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .95rem;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+
+    <header class="hero">
+      <div>
+        <h1>Proceso de compra y opciones de financiamiento</h1>
+        <p>
+          Aquí te explicamos las opciones disponibles para adquirir derechos o inmuebles, según la etapa del caso y tu perfil.
+          <strong>Al final podrás contactarnos por WhatsApp</strong> para que te enviemos la tabla y el plan exacto para tu caso.
+        </p>
+      </div>
+
+      <div class="pills" aria-label="Etiquetas">
+        <span class="pill">✅ Acompañamiento</span>
+        <span class="pill">🧾 Contrato</span>
+        <span class="pill">🧑‍💼 Seguimiento</span>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Opciones">
+
+      <!-- Opción 1 -->
+      <article class="card">
+        <div class="card-header">
+          <h2>Opción 1 — Préstamo hasta posesión</h2>
+          <span class="tag">Interés por tiempo</span>
+        </div>
+
+        <p class="meta">
+          Ideal si buscas un esquema más corto: el financiamiento cubre desde el <strong>traslado</strong> hasta la <strong>posesión</strong>.
+          Pagas interés únicamente por el tiempo que dure el proceso.
+        </p>
+
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>Inicio:</strong> cuando se formaliza el préstamo y se realiza el traslado/liquidación.</span></li>
+          <li><span class="dot"></span><span><strong>Intereses:</strong> se generan <strong>solo</strong> durante el periodo del financiamiento (del traslado a la posesión).</span></li>
+          <li><span class="dot"></span><span><strong>Liquidación:</strong> puedes liquidar anticipadamente según contrato.</span></li>
+         <!-- <li><span class="dot"></span><span class="muted"><strong>Nota:</strong> este esquema no incluye recuperación jurídica.</span></li> -->
+
+        </ul>
+      </article>
+
+      <!-- Opción 2 -->
+      <article class="card">
+        <div class="card-header">
+          <h2>Opción 2 — Crédito tipo hipotecario (hasta 15 años)</h2>
+          <span class="tag">Tasa por perfil</span>
+        </div>
+
+        <p class="meta">
+          Esquema a largo plazo, similar a un crédito hipotecario tradicional.
+          La <strong>tasa</strong> y condiciones dependen del <strong>perfil del cliente</strong>.
+        </p>
+
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>Plazo:</strong> hasta 15 años (según condiciones del caso).</span></li>
+          <li><span class="dot"></span><span><strong>Tasa:</strong> variable según evaluación de perfil y documentación.</span></li>
+          <li><span class="dot"></span><span><strong>¿Quién financia?</strong> puede financiar <strong>la empresa</strong> o <strong>inversionistas</strong>.</span></li>
+          <li><span class="dot"></span><span class="muted"><strong>Importante:</strong> se requiere revisar el caso para confirmar elegibilidad.</span></li>
+        </ul>
+      </article>
+
+      <!-- Opción 3 -->
+      <article class="card">
+        <div class="card-header">
+          <h2>Opción 3 — Crédito bancario tras liberación</h2>
+          <span class="tag">Precio ajusta</span>
+        </div>
+
+        <p class="meta">
+          Una vez que el caso está <strong>liberado</strong>, puede existir la opción de aceptar crédito bancario (hipotecario).
+          <strong>El valor normalmente aumenta</strong> en comparación con la compra con recursos propios.
+        </p>
+
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>Disponibilidad:</strong> depende de que el caso esté liberado y sea apto para banco.</span></li>
+          <li><span class="dot"></span><span><strong>Ajuste de valor:</strong> como referencia, puede aumentar ~ <strong>$300,000 MXN</strong> (varía por caso).</span></li>
+          <li><span class="dot"></span><span><strong>Requisito:</strong> solicitar la <strong>tabla del caso específico</strong> (monto, plazo, costos y condiciones).</span></li>
+        </ul>
+      </article>
+
+      <!-- Proceso -->
+      <article class="card">
+        <div class="card-header">
+          <h2>Proceso de compra (resumen)</h2>
+          <span class="tag">Paso a paso</span>
+        </div>
+
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>1) Selección:</strong> eliges el inmueble o el caso de interés.</span></li>
+          <li><span class="dot"></span><span><strong>2) Revisión:</strong> te indicamos etapa (litigio/adjudicado/posesión) y escenarios.</span></li>
+          <li><span class="dot"></span><span><strong>3) Tabla del caso:</strong> te enviamos la tabla con pagos, plazos y condiciones (según opción).</span></li>
+          <li><span class="dot"></span><span><strong>4) Contrato:</strong> formalización y firma conforme a la opción elegida.</span></li>
+          <li><span class="dot"></span><span><strong>5) Seguimiento:</strong> acompañamiento del proceso hasta la etapa acordada.</span></li>
+        </ul>
+
+        <div class="links">
+          <a class="a ghost" href="index.html">Volver al listado</a>
+          <a class="a primary" href="#contacto">Solicitar tabla por WhatsApp</a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- FAQ estilo acordeón -->
+    <section class="faq" aria-label="Preguntas frecuentes">
+      <h3>Preguntas frecuentes</h3>
+
+      <details>
+        <summary>
+          ¿Qué pasa si deseo acceder al préstamo de la empresa o inversionistas?
+          <span class="chev">⌄</span>
+        </summary>
+        <p>
+          En caso de optar por el <strong>plan de financiamiento privado</strong>, un inversionista o la empresa liquida
+          al titular de los derechos y se realiza el traslado correspondiente.
+          <br><br>
+          El préstamo genera <strong>intereses únicamente durante el tiempo que dure el financiamiento</strong>,
+          es decir, desde que se realiza el traslado/liquidación hasta el momento en que el cliente liquida el total,
+          o hasta la etapa pactada (por ejemplo, <strong>posesión</strong>).
+          <br><br>
+          El plazo comienza a contar a partir de la formalización del préstamo y podrá liquidarse anticipadamente
+          conforme a las condiciones establecidas en el contrato.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          ¿La tasa es fija?
+          <span class="chev">⌄</span>
+        </summary>
+        <p>
+          Depende de la opción:
+          <br>
+          • En préstamo hasta posesión, el interés se calcula por el <strong>tiempo</strong> que dure el financiamiento.
+          <br>
+          • En crédito tipo hipotecario (hasta 15 años), la <strong>tasa depende del perfil</strong> del cliente y condiciones del caso.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          ¿Puedo usar crédito bancario?
+          <span class="chev">⌄</span>
+        </summary>
+        <p>
+          En algunos casos sí, pero normalmente <strong>solo tras liberación</strong> y con requisitos adicionales.
+          Cuando aplica, el valor suele aumentar (referencia aproximada: <strong>$300,000 MXN</strong>, varía por caso).
+          Para confirmarlo, necesitamos enviarte la <strong>tabla del caso específico</strong>.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          ¿Esto incluye recuperación jurídica?
+          <span class="chev">⌄</span>
+        </summary>
+        <p>
+          No. El acompañamiento es para el proceso de compra conforme a la opción seleccionada.
+          
+      </details>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contacto" aria-label="Contacto">
+      <div>
+        <strong>¿Quieres la tabla y condiciones de TU caso?</strong>
+        <div class="small">
+          Escríbenos por WhatsApp y te enviamos la información (monto, plazo, pagos y requisitos) según el inmueble/expediente.
+        </div>
+      </div>
+      <div class="links">
+        <!-- WhatsApp (334 334 0062) -->
+        <a class="a primary"
+           href="https://wa.me/523343340062?text=Hola,%20me%20interesa%20recibir%20la%20tabla%20y%20condiciones%20del%20financiamiento%20para%20un%20caso%20espec%C3%ADfico.%20%C2%BFPuedo%20enviarte%20el%20link%20o%20datos%20del%20inmueble%3F"
+           target="_blank" rel="noopener">
+          Contactar por WhatsApp
+        </a>
+
+       <a class="a ghost"
+        href="mailto:cabepon19@gmail.com?subject=Solicitud%20de%20tabla%20de%20financiamiento&body=Hola,%20solicito%20la%20tabla%20y%20condiciones%20para%20un%20caso%20espec%C3%ADfico.%0A%0AInmueble%20o%20link:%20%0AEtapa%20(si%20la%20conozco):%20%0AOpciones%20de%20inter%C3%A9s:%20(Pr%C3%A9stamo%20hasta%20posesi%C3%B3n%20/%20Cr%C3%A9dito%2015%20a%C3%B1os%20/%20Cr%C3%A9dito%20bancario)%0A%0ANombre:%20%0ATel%C3%A9fono:%20">
+        Enviar por correo
+        </a>
+
+      </div>
+    </section>
+
+    <p class="footer">
+      *La información puede variar por inmueble/expediente. Solicita la tabla del caso específico para condiciones finales.
+    </p>
+
+  </main>
+</body>
+</html>
