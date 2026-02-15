@@ -285,7 +285,26 @@ body{
 
 <body>
 
-  <script>
+<script>
+  const REQUIRE_PASSWORD = true;   // Ahora sí se requiere clave
+  const ACCESS_KEY = "listadobanco26/02";  // Nueva clave para clientes
+
+  if (REQUIRE_PASSWORD) {
+    const ok = sessionStorage.getItem("listados_ok");
+    if (!ok) {
+      const pass = prompt("Acceso restringido.\nIngresa la clave:");
+      if (pass !== ACCESS_KEY) {
+        alert("Clave incorrecta. Acceso restringido.");
+        window.location.href = "/";
+      } else {
+        sessionStorage.setItem("listados_ok", "1");
+      }
+    }
+  }
+</script>
+
+<!--
+<script> "este esta comentado para podera activar si deseo que no tenga clave para entrar"
     const REQUIRE_PASSWORD = false;   // <-- cuando ya esté listo, ponlo en true
     const ACCESS_KEY = "DG-CLIENTE-2026";
 
@@ -301,7 +320,8 @@ body{
         }
       }
     }
-  </script>
+</script>
+-->
 
   <header class="topbar">
     <div class="wrap brand">
@@ -457,6 +477,23 @@ body{
      Ver información
   </a>
 </div>
+</article>
+<article class="card" data-tags="Adjudicados">
+  <div class="card-header">
+    <h3>Listado 09 — Revisar disponi</h3>
+    <span class="tag">Información</span>
+  </div>
+  <p class="meta">
+    Información de las nuevas propiedades, requisitos y formatos. Consulta las condiciones específicas de cada inmueble.
+  </p>
+  <div class="links">
+    <a class="a primary" 
+       href="listadozadjudicados.xlsx" 
+       target="_self">
+       Ver información
+    </a>
+  </div>
+</article>
 
   </article>
 
