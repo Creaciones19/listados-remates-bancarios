@@ -11,47 +11,49 @@
 <link rel="icon" type="image/png" sizes="192x192" href="logodg.jpg">
 <link rel="apple-touch-icon" href="logodg.jpg">
 
- <style>
+<style>
 :root{
   --bbva:#0b2a5b;
   --bbva-2:#1464a5;
-
   --card:#ffffff;
   --text:#0f172a;
   --muted:#5b6b83;
   --border:#e6ebf2;
-
   --shadow:0 12px 30px rgba(11,42,91,.12);
   --shadowHover:0 18px 44px rgba(11,42,91,.18);
-
   --radius:16px;
 }
 
-*{box-sizing:border-box}
-html,body{min-height:100%}
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  min-height:100%;
+  margin:0;
+  padding:0;
+  overflow-x:hidden; /* 🔥 evita desbordes laterales */
+}
 
 body{
-  margin:0;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--text);
-
-  /* ✅ FONDO UNIFICADO (sin cortes) */
   background: linear-gradient(180deg, #0e5ca8 0%, #0b3f7a 55%, #072146 100%);
   background-attachment: fixed;
 }
 
-/* Contenedor */
+/* CONTENEDOR */
 .wrap{
   max-width:1100px;
   margin:0 auto;
-  padding: 0 14px;
+  padding:0 16px;
+  width:100%;
 }
 
-/* ✅ Topbar sin “corte” */
+/* TOPBAR */
 .topbar{
-  background: transparent;
   color:#fff;
-  padding: 18px 0 12px;
+  padding:18px 0 12px;
   border-bottom:1px solid rgba(255,255,255,.16);
 }
 
@@ -60,13 +62,13 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:12px;
+  flex-wrap:wrap; /* 🔥 ahora no se rompe en móvil */
 }
 
 .brand h1{
   margin:0;
   font-size:14px;
   letter-spacing:.4px;
-  opacity:.95;
 }
 
 .brand .pill{
@@ -78,43 +80,50 @@ body{
   border-radius:999px;
   font-size:12px;
   border:1px solid rgba(255,255,255,.18);
-  white-space:nowrap;
 }
 
-.hero{ padding: 12px 0 8px; }
-
-/* Notice */
+/* NOTICE */
 .notice{
-  background:rgba(255,255,255,.96);
-  border:1px solid rgba(230,235,242,.9);
+  background:#fff;
+  border:1px solid var(--border);
   border-left:6px solid var(--bbva-2);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
-  padding:14px 14px;
+  padding:14px;
   margin:14px 0 16px;
 }
-.notice h2{ margin:0 0 8px; font-size:14px; color:var(--bbva); }
-.notice p{ margin:0; color:var(--muted); font-size:13px; line-height:1.45 }
-.notice ul{ margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px }
-.notice li{ margin:6px 0 }
-.small{ font-size:12px; color:var(--muted); line-height:1.5; margin:10px 0 0; }
 
-/* Controls */
+.notice h2{
+  margin:0 0 8px;
+  font-size:14px;
+  color:var(--bbva);
+}
+
+.notice p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* CONTROLES */
 .controls{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   margin:14px 0 8px;
 }
+
 .input{
-  flex:1 1 280px;
-  background:rgba(255,255,255,.96);
-  border:1px solid rgba(230,235,242,.9);
+  flex:1 1 260px;
+  min-width:0; /* 🔥 evita que se desborde */
+  background:#fff;
+  border:1px solid var(--border);
   border-radius:12px;
   padding:10px 12px;
   font-size:14px;
-  outline:none;
 }
+
 .btn{
   background:var(--bbva-2);
   color:#fff;
@@ -123,60 +132,58 @@ body{
   padding:10px 14px;
   font-weight:800;
   cursor:pointer;
-  transition:transform .15s ease, filter .15s ease;
-  white-space:nowrap;
-}
-.btn:hover{ transform:translateY(-1px); filter:brightness(.98); }
-.btn.secondary{
-  background:rgba(255,255,255,.96);
-  color:var(--bbva-2);
-  border:1px solid rgba(230,235,242,.9);
 }
 
-/* ✅ GRID */
+.btn.secondary{
+  background:#fff;
+  color:var(--bbva-2);
+  border:1px solid var(--border);
+}
+
+/* GRID PRINCIPAL */
 .grid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap:14px;
-  padding: 10px 0 34px;
+  grid-template-columns: repeat(2, 1fr);
+  gap:18px;
+  padding:10px 0 34px;
+  width:100%;
 }
 
+/* CARDS */
 .card{
-  background:rgba(255,255,255,.98);
-  border:1px solid rgba(230,235,242,.95);
+  background:#fff;
+  border:1px solid var(--border);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
-  padding:14px;
-  overflow:hidden;
-
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  will-change: transform;
+  padding:16px;
+  transition:.2s ease;
 }
+
 .card:hover{
-  transform: translateY(-4px);
-  box-shadow: var(--shadowHover);
-  border-color: rgba(20,100,165,.30);
+  transform:translateY(-4px);
+  box-shadow:var(--shadowHover);
 }
 
 .card-header{
   display:flex;
-  align-items:flex-start;
   justify-content:space-between;
   gap:12px;
   margin-bottom:10px;
+  flex-wrap:wrap; /* 🔥 evita ruptura */
 }
-.card h3{ margin:0; font-size:15px; color:var(--bbva); }
 
-.tag{
-  font-size:11px;
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(20,100,165,.10);
-  color:var(--bbva-2);
-  border:1px solid rgba(20,100,165,.20);
-  white-space:nowrap;
+.card h3{
+  margin:0;
+  font-size:15px;
+  color:var(--bbva);
 }
-.meta{ margin:0; font-size:13px; color:var(--muted); line-height:1.45 }
+
+.meta{
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.5;
+}
 
 .links{
   margin-top:12px;
@@ -184,102 +191,163 @@ body{
   gap:10px;
   flex-wrap:wrap;
 }
+
 .a{
   display:inline-flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   padding:9px 12px;
   border-radius:12px;
   text-decoration:none;
   font-weight:800;
   font-size:13px;
-  border:1px solid rgba(230,235,242,.95);
+  border:1px solid var(--border);
   color:var(--bbva-2);
-  background:rgba(255,255,255,.98);
-  transition:transform .15s ease, filter .15s ease;
-}
-.a:hover{ transform:translateY(-1px); filter:brightness(.98); }
-.a.primary{
-  background:linear-gradient(90deg, var(--bbva), var(--bbva-2));
-  color:#fff;
-  border:1px solid rgba(255,255,255,.14);
+  background:#fff;
 }
 
-/* ✅ Footer integrado (sin franja blanca) */
+.a.primary{
+  background:linear-gradient(90deg,var(--bbva),var(--bbva-2));
+  color:#fff;
+}
+
+/* FICHAS TECNICAS */
+.fichas-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap:18px;
+  margin:30px 0;
+  width:100%;
+}
+
+.fichas-grid .thumb{
+  border:none;
+}
+
+.fichas-grid img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
+.fichas-grid .thumb{
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.fichas-grid .thumb:hover{
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  padding:20px;
+}
+
+.lightbox.open{
+  display:flex;
+}
+
+.lb-img{
+  max-width:95%;
+  max-height:90vh;
+  border-radius:10px;
+  background:#fff;
+}
+
+.lb-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  font-size:20px;
+}
+
+/* FOOTER */
 .footer{
   padding:16px 0 28px;
   font-size:12px;
   border-top:1px solid rgba(255,255,255,.16);
-  background:transparent;
-  color:#ffffff; /* blanco real */
+  color:#ffffff;
 }
 
-.footer .small{
-  color:#ffffff; /* forzamos blanco solo en small */
-  opacity:0.95;  /* opcional, para que no sea tan brillante */
-}
+/* ============================= */
+/* 🔥 RESPONSIVE GENERAL CORRECTO */
+/* ============================= */
 
-/* ===== RESPONSIVE ===== */
-/* ===============================
-   RESPONSIVE LIMPIO Y ORDENADO
-   =============================== */
+/* Tablet */
+@media (max-width: 1024px){
 
-/* Desktop base */
-.grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:16px;
-}
-
-/* ===============================
-   RESPONSIVE LIMPIO (TABLET + CEL)
-   =============================== */
-@media (max-width: 900px){
-
-  /* Grid a 1 columna */
   .grid{
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns:1fr 1fr;
   }
 
-  /* Header de card apilado */
-  .card-header{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .fichas-grid{
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
-  /* Botones/links a full */
+}
+
+/* Móvil */
+@media (max-width: 768px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .brand{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .controls{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
   .links{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction:column;
   }
 
   .a{
-    width: 100%;
-    text-align: center;
+    width:100%;
   }
 
-  /* ✅ Controles: botón centrado y sin desbordes */
-  .controls{
-    display: flex;              /* por si no lo tiene */
-    justify-content: center;
+  .fichas-grid{
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   }
 
-  .controls .btn.secondary{
-    width: 100%;
-    max-width: 520px;
-    text-align: center;
-
-    /* clave para que NO se salga */
-    white-space: normal;        /* permite saltos */
-    line-height: 1.25;
-  }
 }
 
+/* Móvil pequeño */
+@media (max-width: 480px){
 
+  .fichas-grid{
+    grid-template-columns:1fr;
+  }
+
+  .wrap{
+    padding:0 12px;
+  }
+
+}
 </style>
+
 
 </head>
 
@@ -297,7 +365,7 @@ body{
         alert("Clave incorrecta. Acceso restringido.");
         window.location.href = "/";
       } else {
-        sessionStorage.setItem("listados_ok", "1");
+        sessionStorage.setItem("listados_listadobanco26/02ok", "1");
       }
     }
   }
@@ -374,8 +442,62 @@ body{
     Contacta al asesor para validar disponibilidad.
   </a>
 </div>
+<!-- ===== PORTAFOLIO ===== -->
+<section class="portafolio">
+  <div class="fichas-grid">
 
-    </section>
+    <!-- FICHA 1 -->
+    <div class="thumb">
+      <img 
+        src="FICHACAFETALES.png" 
+        data-full="fichaintercafetales.png"
+        alt="Ficha Técnica 1">
+    </div>
+
+    <!-- FICHA 2 -->
+    <div class="thumb">
+      <img 
+        src="FICHA ATOYAX.png" 
+        data-full="INTERIOR3.png"
+        alt="Ficha Técnica 2">
+    </div>
+
+    <!-- FICHA 3 -->
+    <div class="thumb">
+      <img 
+        src="FICHA ROMA.png" 
+        data-full="INTERIOR4.png"
+        alt="Ficha Técnica 3">
+    </div>
+
+    <!-- FICHA 4 -->
+    <div class="thumb">
+      <img 
+        src="FICHACOLMODERNA.png" 
+        data-full="INTERIOR2.png"
+        alt="Ficha Técnica 4">
+    </div>
+
+    <!-- FICHA 5 -->
+   <!--
+  <div class="thumb">
+    <img 
+      src="FICHACAFETALES.png" 
+      data-full="fichaintercafetales.png"
+      alt="Ficha Técnica 5">
+  </div>
+  -->
+
+
+  </div>
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <img class="lb-img" id="lbImg" alt="Vista ampliada">
+</div>
+
 
    <section class="grid" id="grid">
 
@@ -508,7 +630,7 @@ body{
 
   <div class="links">
     <a class="a primary" 
-       href="listadozadjudicados.xlsx" 
+       href="INVENTARIO ZADJUDICADOS FEBRERO 2026.xlsx" 
        target="_self">
        Ver información
     </a>
@@ -549,6 +671,32 @@ body{
       </div>
     </div>
   </footer>
+<script>
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
+
+  document.querySelectorAll('.thumb img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.dataset.full; // 👈 aquí usa la imagen grande
+      lb.classList.add('open');
+    });
+  });
+
+  function closeLB(){
+    lb.classList.remove('open');
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', (e) => { 
+    if(e.target === lb) closeLB(); 
+  });
+
+  document.addEventListener('keydown', (e) => { 
+    if(e.key === 'Escape') closeLB(); 
+  });
+</script>
 
 </body>
 </html>
