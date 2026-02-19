@@ -274,6 +274,52 @@ body{
   cursor:pointer;
   font-size:20px;
 }
+/* SOLO EN MOVIL *//*todo esto sirve para que en responsive la ficha tecnica tenga mensaje de abrir */
+@media (max-width: 768px){
+
+  .fichas-grid .thumb{
+    position: relative;
+  }
+
+  .fichas-grid .thumb::after{
+    content: "Tocar para abrir";
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(11,42,91,.85);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+
+}
+@media (max-width: 768px){
+
+  .fichas-grid .thumb{
+    position: relative;
+    cursor: pointer;
+  }
+
+  .fichas-grid .thumb::after{
+    content: "Tocar para abrir";
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(11,42,91,.85);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    pointer-events: none; /* 🔥 ESTA ES LA CLAVE */
+  }
+
+}
 
 /* FOOTER */
 .footer{
