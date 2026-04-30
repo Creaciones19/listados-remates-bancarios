@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+margin:0;
+background:#f2f2f2;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:Arial;
+}
+
+.video{
+width:1080px;
+height:1920px;
+position:relative;
+background:#f2f2f2;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:120px;
+padding-top:350px; /* BAJA TODO EL BLOQUE */
+}
+/* CONTADOR */
+.bloque{
+text-align:center;
+}
+
+.numero{
+background:#0B3D91;
+color:white;
+font-size:140px;
+font-weight:bold;
+padding:20px 60px;
+border-radius:20px;
+}
+
+.label{
+font-size:60px;
+color:#333;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="video">
+
+<div class="bloque">
+<div class="numero" id="clientes">0</div>
+<div class="label">CLIENTES SATISFECHOS</div>
+</div>
+
+<div class="bloque">
+<div class="numero" id="asesores">0</div>
+<div class="label">COLABORADORES</div>
+</div>
+
+</div>
+
+<script>
+
+function animar(id, meta, velocidad){
+
+let actual=0;
+let el=document.getElementById(id);
+
+let intervalo=setInterval(()=>{
+
+actual+=Math.ceil(meta/60);
+
+if(actual>=meta){
+actual=meta;
+clearInterval(intervalo);
+}
+
+el.innerText="+"+actual.toLocaleString();
+
+},velocidad);
+
+}
+
+/* INICIA */
+window.onload=()=>{
+
+animar("clientes",2000,40);
+setTimeout(()=>{
+animar("asesores",100,40);
+},1200);
+
+}
+
+</script>
+
+</body>
+</html>
